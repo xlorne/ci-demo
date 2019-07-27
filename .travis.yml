@@ -6,6 +6,7 @@ services:
 - mysql
 
 before_install:
+- pip install --user codecov
 - mysql -u root --password=  < ./sql/init.sql
 
 script:
