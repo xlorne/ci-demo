@@ -12,9 +12,6 @@ script:
 - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./travis/run_on_pull_requests; fi
 - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./travis/run_on_non_pull_requests; fi
 
-branches:
-  only:
-  - master
 
 install:
 - ./mvnw install -Dmaven.javadoc.skip=true -B -V -Ptravis
