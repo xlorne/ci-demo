@@ -33,6 +33,7 @@ public class DemoServiceTest {
     private String userName = UUID.randomUUID().toString();
 
     @Before
+    @Test
     public void save(){
         Demo demo = new Demo();
         demo.setName(userName);
