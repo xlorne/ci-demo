@@ -41,4 +41,10 @@ public class DemoServiceImpl implements DemoService {
         }
         return demo.toBean(new LoginRes());
     }
+
+    @Override
+    public void test() {
+        int res = 100 / 0;
+        System.out.println("xxxx");
+    }
 }

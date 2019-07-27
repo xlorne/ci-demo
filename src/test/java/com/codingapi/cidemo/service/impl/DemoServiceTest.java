@@ -65,4 +65,9 @@ public class DemoServiceTest {
             exp.printStackTrace();
         }
     }
+
+    @Test
+    public void test() {
+        demoService.test();
+    }
 }

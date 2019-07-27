@@ -18,4 +18,6 @@ public interface DemoService {
     List<Demo> list();
 
     LoginRes login(LoginReq loginReq);
+
+    void test();
 }
