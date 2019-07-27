@@ -6,6 +6,7 @@ services:
 - mysql
 
 before_install:
+- pip install --user codecov
 - mysql -u root --password=  < ./sql/init.sql
 
 script:
@@ -13,3 +14,8 @@ script:
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
+
+
+env:
+  global:
+  - CODECOV_TOKEN=95bcd81b-35e2-415d-b96c-9b2ce769dbcf
