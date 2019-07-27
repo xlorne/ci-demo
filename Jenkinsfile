@@ -21,6 +21,7 @@ pipeline {
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
                   ])
 
+                  System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
             }
         }
         stage('Test') {
