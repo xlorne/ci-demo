@@ -3,6 +3,7 @@ package com.codingapi.cidemo.service.impl;
 import com.codingapi.cidemo.domain.Demo;
 import com.codingapi.cidemo.service.DemoService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class DemoServiceTest {
     @Autowired
     private DemoService demoService;
 
-    @Test
+    @Before
     public void save(){
         Demo demo = new Demo();
         demo.setName(UUID.randomUUID().toString());
