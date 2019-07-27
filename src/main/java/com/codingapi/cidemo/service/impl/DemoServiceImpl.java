@@ -44,7 +44,7 @@ public class DemoServiceImpl implements DemoService {
 
     @Override
     public void test() {
-        int res = 100 / 0;
+        int res = 100 / 1;
         System.out.println("xxxx");
     }
 }
