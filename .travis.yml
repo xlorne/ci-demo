@@ -9,7 +9,6 @@ before_install:
 - mysql -u root --password=  < ./sql/init.sql
 
 script:
-- echo ' build success.'
 - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./travis/run_on_pull_requests; fi
 
 branches:
