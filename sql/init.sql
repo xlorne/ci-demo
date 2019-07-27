@@ -4,7 +4,7 @@ CREATE USER 'prod'@'localhost' IDENTIFIED BY 'prod';
 GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON *.* TO 'prod'@'localhost';
 
 
-USE `t_test` ;
+USE `test` ;
 
 
 DROP TABLE IF EXISTS `t_test`;
