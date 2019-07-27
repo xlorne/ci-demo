@@ -21,7 +21,7 @@ pipeline {
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
                   ])
 
-                  sh "sandbox; default-src 'none'; img-src 'self'; style-src 'self';"
+                  
             }
         }
         stage('Test') {
