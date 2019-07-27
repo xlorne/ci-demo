@@ -4,7 +4,7 @@ services:
 - mysql
 
 before_install:
-- mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+- mysql -u root --password="" < sql/init.sql
 
 script:
 - ./mvnw install -Dmaven.javadoc.skip=true -B -V -Ptravis
