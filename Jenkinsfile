@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+            JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' 'unsafe-inline' data:;\""
+    }
+
     tools {
             maven 'maven3'
             jdk 'jdk1.8'
