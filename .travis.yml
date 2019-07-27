@@ -8,11 +8,10 @@ services:
 before_install:
 - mysql -u root --password=  < ./sql/init.sql
 
-install: true
 
 script:
-- travis_wait 30 ./mvnw clean install -DskipTests=false -Dcheckstyle.skip=false -Drat.skip=false -Dmaven.javadoc.skip=true -P travis
-- mvn cobertura:cobertura
+- ./mvnw install -Dmaven.javadoc.skip=true -B -V -Ptravis
+- ./mvnw cobertura:cobertura -Ptravis
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
