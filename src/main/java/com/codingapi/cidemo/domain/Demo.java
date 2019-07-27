@@ -1,5 +1,6 @@
 package com.codingapi.cidemo.domain;
 
+import com.codingapi.cidemo.vo.BaseVO;
 import lombok.Data;
 
 /**
@@ -8,7 +9,7 @@ import lombok.Data;
  * @description
  */
 @Data
-public class Demo {
+public class Demo extends BaseVO {
 
     private Long id;
 

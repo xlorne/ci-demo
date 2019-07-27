@@ -1,6 +1,8 @@
 package com.codingapi.cidemo.service;
 
 import com.codingapi.cidemo.domain.Demo;
+import com.codingapi.cidemo.vo.LoginReq;
+import com.codingapi.cidemo.vo.LoginRes;
 
 import java.util.List;
 
@@ -15,4 +17,5 @@ public interface DemoService {
 
     List<Demo> list();
 
+    LoginRes login(LoginReq loginReq);
 }
