@@ -1,7 +1,10 @@
 package com.codingapi.cidemo.service.impl;
 
 import com.codingapi.cidemo.domain.Demo;
+import com.codingapi.cidemo.exception.UserNameNotFoundException;
 import com.codingapi.cidemo.service.DemoService;
+import com.codingapi.cidemo.vo.LoginReq;
+import com.codingapi.cidemo.vo.LoginRes;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,10 +30,12 @@ public class DemoServiceTest {
     @Autowired
     private DemoService demoService;
 
+    private String userName = UUID.randomUUID().toString();
+
     @Before
     public void save(){
         Demo demo = new Demo();
-        demo.setName(UUID.randomUUID().toString());
+        demo.setName(userName);
         boolean res = demoService.save(demo);
         Assert.isTrue(res,"save error.");
     }
@@ -42,4 +47,22 @@ public class DemoServiceTest {
         Assert.notEmpty(list,"select error .");
     }
 
+
+    @Test
+    public void login_success() {
+        LoginRes loginRes = demoService.login(new LoginReq(userName));
+        log.info("login - > {}", loginRes);
+        Assert.notNull(loginRes, "login error .");
+    }
+
+    @Test
+    public void login_error() {
+        try {
+            LoginRes loginRes = demoService.login(new LoginReq("null"));
+            log.info("login - > {}", loginRes);
+            Assert.isNull(loginRes, "login error success .");
+        } catch (UserNameNotFoundException exp) {
+            exp.printStackTrace();
+        }
+    }
 }
