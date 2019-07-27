@@ -1,8 +1,5 @@
 CREATE DATABASE IF NOT EXISTS test;
 
-CREATE USER 'travis'@'localhost' IDENTIFIED BY 'travis';
-GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON *.* TO 'travis'@'localhost';
-
 
 USE `test` ;
 
