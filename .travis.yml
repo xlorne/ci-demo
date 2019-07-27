@@ -1,7 +1,5 @@
 language: java
 
-os: osx
-
 services:
 - mysql
 
