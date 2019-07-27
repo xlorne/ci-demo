@@ -6,5 +6,6 @@ services:
 before_install:
 - mysql -u root --password=  < ./sql/init.sql
 
-script:
+
+install:
 - ./mvnw install -Dmaven.javadoc.skip=true -B -V -Ptravis
