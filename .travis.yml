@@ -8,10 +8,8 @@ services:
 before_install:
 - mysql -u root --password=  < ./sql/init.sql
 
-
 script:
-- ./mvnw install -Dmaven.javadoc.skip=true -B -V -Ptravis
-- ./mvnw cobertura:cobertura -Ptravis
+- ./mvnw cobertura:cobertura
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
