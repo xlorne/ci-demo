@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-            JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"sandbox allow-same-origin allow-scripts; default-src 'self'; script-src * 'unsafe-eval'; img-src *; style-src * 'unsafe-inline'; font-src *\""
-    }
-
     tools {
             maven 'maven3'
             jdk 'jdk1.8'
@@ -39,4 +35,7 @@ pipeline {
             }
         }
     }
+
 }
+
+//Manage Jenkins -> Script Console=>  System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' 'unsafe-inline' data:;")
