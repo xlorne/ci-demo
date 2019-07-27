@@ -1,65 +1,38 @@
 pipeline {
-    environment{
-        stageCompile = ':x:'
-        stageDependencies = ':x:'
-        stageTest = ':x:'
-        stageClient = ':x:'
-        stageArchive = ':x:'
-    }
     agent any
+
+    tools {
+            maven 'maven3'
+            jdk 'jdk1.8'
+    }
     stages {
-        stage('Dependencies') {
-            steps{
-                script
-                {
-                    stageDependencies = "Dependencies OK"
-                }
-            }
-        }
-        stage('Compile') {
-            steps{
-                script
-                {
-                    stageCompile = "Compile OK"
-                }
+        stage('Build') {
+            steps {
+                echo 'Building..'
+
+                 sh "mvn clean clover:setup test clover:aggregate clover:clover"
+
+                  step([
+                    $class: 'CloverPublisher',
+                    cloverReportDir: './target/site/clover',
+                    cloverReportFileName: 'clover.xml',
+                    healthyTarget: [methodCoverage: 70, conditionalCoverage: 80, statementCoverage: 80], // optional, default is: method=70, conditional=80, statement=80
+                    unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50], // optional, default is none
+                    failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
+                  ])
+
+
             }
         }
         stage('Test') {
-            steps{
-                script
-                {
-                    stageTest = "Test OK"
-                }
+            steps {
+                echo 'Testing..'
             }
         }
-        stage('Client') {
-            steps{
-                script
-                {
-                    stageClient = "Client OK"
-                }
-            }
-        }
-        stage('Archive') {
-            steps{
-                script
-                {
-                    stageArchive = "Archive OK"
-                }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
             }
         }
     }
-    post {
-        always {
-            slackNotify()
-        }
-    }
-}
-
-void slackNotify() {
-    echo stageDependencies
-    echo stageCompile
-    echo stageTest
-    echo stageClient
-    echo stageArchive
 }
