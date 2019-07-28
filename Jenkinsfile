@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo 'Building..'
 
-                 sh "mvn clean clover:setup test clover:aggregate clover:clover"
+                 bat "mvn clean clover:setup test clover:aggregate clover:clover"
 
                   step([
                     $class: 'CloverPublisher',
@@ -26,12 +26,12 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                bat 'Testing..'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                bat 'Deploying....'
             }
         }
     }
