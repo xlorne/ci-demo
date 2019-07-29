@@ -6,15 +6,15 @@ pipeline {
             jdk 'jdk1.8'
     }
     stages {
-        stage('Back-end') {
-          docker {
-                     image 'mysql'
-                 }
-        }
         stage('Build') {
+             agent {
+                 docker {
+                    image 'mysql'
+                 }
+             }
              steps {
-                      echo 'Building..'
-                   }
+                    echo 'Building..'
+             }
         }
         stage('Test') {
             steps {
