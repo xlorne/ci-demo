@@ -1,6 +1,8 @@
 pipeline {
-    agent docker{
+    agent{
+        docker{
             image 'mysql 5.6'
+        }
     }
 
     tools {
