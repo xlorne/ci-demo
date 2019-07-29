@@ -1,9 +1,5 @@
 pipeline {
-    agent{
-        docker{
-            image 'mysql'
-        }
-    }
+    agent any
 
     tools {
             maven 'maven3'
@@ -13,8 +9,15 @@ pipeline {
         stage('Build') {
             steps {
                  echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
 
-                 sh "mvn clean clover:setup test clover:aggregate clover:clover"
+                sh "docker run mysql"
+                sh "mvn clean clover:setup test clover:aggregate clover:clover"
+
 
                   step([
                     $class: 'CloverPublisher',
@@ -24,11 +27,6 @@ pipeline {
                     unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50], // optional, default is none
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
                   ])
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
             }
         }
         stage('Deploy') {
