@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent docker{
+            image 'mysql 5.6'
+    }
 
     tools {
             maven 'maven3'
