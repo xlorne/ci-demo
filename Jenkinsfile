@@ -8,9 +8,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                 echo 'Building..'
 
-                 bat "mvn clean clover:setup test clover:aggregate clover:clover"
+                 sh "mvn clean clover:setup test clover:aggregate clover:clover"
 
                   step([
                     $class: 'CloverPublisher',
@@ -20,18 +20,16 @@ pipeline {
                     unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50], // optional, default is none
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
                   ])
-
-
             }
         }
         stage('Test') {
             steps {
-                bat 'Testing..'
+                echo 'Testing..'
             }
         }
         stage('Deploy') {
             steps {
-                bat 'Deploying....'
+                echo 'Deploying....'
             }
         }
     }
