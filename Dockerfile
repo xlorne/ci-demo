@@ -1,4 +1,4 @@
-FROM centos7
+FROM ubuntu
 
 
 
