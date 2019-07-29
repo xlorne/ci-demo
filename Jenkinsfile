@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+         dockerfile true
+    }
 
     tools {
             maven 'maven3'
@@ -7,11 +9,6 @@ pipeline {
     }
     stages {
         stage('Build') {
-             agent {
-                 docker {
-                    image 'mysql'
-                 }
-             }
              steps {
                     echo 'Building..'
              }
