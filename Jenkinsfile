@@ -7,6 +7,9 @@ pipeline {
     }
     stages {
         stage('Build') {
+            docker {
+                image 'mysql'
+            }
             steps {
                  echo 'Building..'
             }
