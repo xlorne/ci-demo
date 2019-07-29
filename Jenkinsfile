@@ -20,9 +20,7 @@ pipeline {
             steps {
                 echo 'Testing..'
 
-                sh "docker run –name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql"
                 sh "mvn clean clover:setup test clover:aggregate clover:clover"
-
 
                   step([
                     $class: 'CloverPublisher',
