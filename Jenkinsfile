@@ -15,7 +15,6 @@ pipeline {
         stage('Build Test') {
             steps {
                 echo 'Testing..'
-                sh "docker run mysql "
                 sh "mvn clean clover:setup test clover:aggregate clover:clover"
 
                   step([
