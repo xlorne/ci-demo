@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-         dockerfile true
-    }
+    agent any
 
     tools {
             maven 'maven3'
@@ -16,7 +14,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-
+                sh "docker run mysql "
                 sh "mvn clean clover:setup test clover:aggregate clover:clover"
 
                   step([
