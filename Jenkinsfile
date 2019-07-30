@@ -1,18 +1,18 @@
 pipeline {
-    agent any
+    agent none
 
     tools {
             maven 'maven3'
             jdk 'jdk1.8'
-            docker 'docker'
     }
     stages {
         stage('Build') {
-             steps {
-                    echo 'Building..'
-             }
+              agent { docker 'mysql' }
+              steps {
+                 echo 'Hello, mysql'
+              }
         }
-        stage('Test') {
+        stage('Build Test') {
             steps {
                 echo 'Testing..'
                 sh "docker run mysql "
