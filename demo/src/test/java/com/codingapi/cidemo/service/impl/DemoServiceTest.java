@@ -1,9 +1,9 @@
 package com.codingapi.cidemo.service.impl;
 
-import com.codingapi.cidemo.annotation.TestMethod;
+import com.codingapi.test.annotation.TestMethod;
 import com.codingapi.cidemo.domain.Demo;
 import com.codingapi.cidemo.exception.UserNameNotFoundException;
-import com.codingapi.cidemo.listener.JunitMethodListener;
+import com.codingapi.test.listener.JunitMethodListener;
 import com.codingapi.cidemo.service.DemoService;
 import com.codingapi.cidemo.vo.LoginReq;
 import com.codingapi.cidemo.vo.LoginRes;

@@ -18,11 +18,6 @@ public class TestConfig {
     private boolean enable;
 
     /**
-     * 扫描的包路径,若多个可用逗号分隔
-     */
-    private String entityPackage;
-
-    /**
      * 输出xml的路径
      */
     private String outPath;

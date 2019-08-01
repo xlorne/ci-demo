@@ -1,7 +1,6 @@
-package com.codingapi.cidemo;
+package com.codingapi.test;
 
-import com.codingapi.cidemo.annotation.TestMethod;
-import springfox.documentation.builders.RequestHandlerSelectors;
+import com.codingapi.test.annotation.TestMethod;
 
 /**
  * @author lorne

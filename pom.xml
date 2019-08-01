@@ -35,10 +35,8 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-c
-            </artifactId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>

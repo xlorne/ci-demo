@@ -1,4 +1,4 @@
-package com.codingapi.cidemo.annotation;
+package com.codingapi.test.annotation;
 
 /**
  * @author lorne

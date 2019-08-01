@@ -1,7 +1,8 @@
-package com.codingapi.cidemo.listener;
+package com.codingapi.test.listener;
 
-import com.codingapi.cidemo.TestRunnerTool;
-import com.codingapi.cidemo.annotation.TestMethod;
+
+import com.codingapi.test.TestRunnerTool;
+import com.codingapi.test.annotation.TestMethod;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.support.AbstractTestExecutionListener;
 

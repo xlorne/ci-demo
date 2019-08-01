@@ -26,9 +26,8 @@ public class TestRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        String packageName = testConfig.getEntityPackage();
-        System.out.println(packageName);
-
+        String outPath = testConfig.getOutPath();
+        System.out.println(outPath);
 
         Iterable<Class<?>> annotated = ClassIndex.getAnnotated(XmlBuild.class);
         Iterator<Class<?>> iterator = annotated.iterator();
