@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-         dockerfile true
-    }
+    agent any
 
     tools {
             maven 'maven3'
@@ -17,6 +15,8 @@ pipeline {
             steps {
                 echo 'Testing..'
 
+                sh "docker run mysql -xxxxxx "
+
                 sh "mvn clean clover:setup test clover:aggregate clover:clover"
 
                   step([
@@ -27,6 +27,8 @@ pipeline {
                     unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50], // optional, default is none
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
                   ])
+
+                  sh "docker rm mysql"
             }
         }
         stage('Deploy') {
