@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<data>
-    <item>
-        <id>id</id>
-        <name>name</name>
-    </item>
-</data>
+<list initCmd="insert into t_demo values(id,name) values(#{id},#{name})" dbType="Mysql">
+	<item>
+		<id>id</id>
+		<name>name</name>
+	</item>
+</list>

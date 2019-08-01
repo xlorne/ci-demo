@@ -3,6 +3,7 @@ package com.codingapi.test.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+
 /**
  * @author lorne
  * @date 2019/8/1

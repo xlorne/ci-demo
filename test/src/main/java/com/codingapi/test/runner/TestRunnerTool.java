@@ -1,4 +1,4 @@
-package com.codingapi.test;
+package com.codingapi.test.runner;
 
 import com.codingapi.test.annotation.TestMethod;
 
@@ -22,7 +22,6 @@ public class TestRunnerTool {
         switch (testMethod.prepareDateType()){
             case XML2DB:{
                 for(String path:testMethod.prepareDateConfig()){
-
 
                 }
 

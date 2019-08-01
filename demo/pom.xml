@@ -20,24 +20,6 @@
     </properties>
 
 
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <activatedProperties>dev</activatedProperties>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>travis</id>
-            <properties>
-                <activatedProperties>travis</activatedProperties>
-            </properties>
-        </profile>
-    </profiles>
-
     <dependencies>
 
         <dependency>
@@ -66,13 +48,6 @@
             <groupId>com.codingapi</groupId>
             <artifactId>test</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
         </dependency>
 
     </dependencies>

@@ -13,14 +13,17 @@
 
     <dependencies>
 
-
-
         <dependency>
             <groupId>org.atteo.classindex</groupId>
             <artifactId>classindex</artifactId>
             <version>3.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.2</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -13,9 +13,12 @@ import java.lang.annotation.Target;
  * @description
  */
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 @IndexAnnotated
 public @interface XmlBuild {
 
+    String initCmd() default "";
+
+    DBType dbType() default DBType.Mysql;
 
 }

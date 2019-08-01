@@ -1,14 +1,17 @@
-package com.codingapi.test;
+package com.codingapi.test.runner;
 
 import com.codingapi.test.annotation.XmlBuild;
 import com.codingapi.test.config.TestConfig;
+import com.codingapi.test.xml.XmlUtils;
+import org.apache.commons.io.FileUtils;
 import org.atteo.classindex.ClassIndex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Field;
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 
 /**
@@ -23,26 +26,17 @@ public class TestRunner implements CommandLineRunner {
     @Autowired
     private TestConfig testConfig;
 
-
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws IOException {
         String outPath = testConfig.getOutPath();
-        System.out.println(outPath);
-
         Iterable<Class<?>> annotated = ClassIndex.getAnnotated(XmlBuild.class);
         Iterator<Class<?>> iterator = annotated.iterator();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("<?xml version=\"1.0\"?>\n");
         while (iterator.hasNext()){
             Class<?> clazz=  iterator.next();
-            Field[] fields = clazz.getDeclaredFields();
-            for (Field field:fields){
-                String key = field.getName();
-                sb.append(String.format("\t<%s>%s</%s>\n",key,key,key));
-            }
+            File file = new File(outPath+"/"+clazz.getSimpleName()+".xml");
+            FileUtils.writeStringToFile(file, XmlUtils.create(clazz,clazz.getAnnotation(XmlBuild.class)),false);
         }
-        sb.append("</xml>");
-        System.out.println(sb);
+
     }
 }
