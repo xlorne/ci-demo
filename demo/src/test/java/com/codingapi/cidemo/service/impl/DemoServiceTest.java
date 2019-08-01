@@ -39,7 +39,7 @@ public class DemoServiceTest {
     private String userName = UUID.randomUUID().toString();
 
     @Test
-    @TestMethod()
+    @TestMethod(prepareDate = {Demo.class})
     public void save(){
         Demo demo = new Demo();
         demo.setName(userName);

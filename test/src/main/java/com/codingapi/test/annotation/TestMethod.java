@@ -1,6 +1,8 @@
 package com.codingapi.test.annotation;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
@@ -9,15 +11,12 @@ import java.lang.annotation.Target;
  * @description
  */
 @Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface TestMethod {
 
    boolean enablePrepare() default true;
 
-    PrepareDataType  prepareDateType() default PrepareDataType.XML2DB;
-
-
-    String[] prepareDateConfig() default {};
-
+    Class<?>[] prepareDate() default {};
 
     boolean enableCheck() default false;
 

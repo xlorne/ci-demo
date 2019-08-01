@@ -1,6 +1,7 @@
 package com.codingapi.test.runner;
 
 import com.codingapi.test.annotation.TestMethod;
+import com.codingapi.test.config.TestConfig;
 
 /**
  * @author lorne
@@ -10,26 +11,16 @@ import com.codingapi.test.annotation.TestMethod;
 public class TestRunnerTool {
 
 
-    public static void check(TestMethod testMethod) {
-
+    public static void check(TestMethod testMethod, TestConfig testConfig) {
+        System.out.println(testConfig);
     }
 
-    public static void clean(TestMethod testMethod) {
-
+    public static void clean(TestMethod testMethod, TestConfig testConfig) {
+        System.out.println(testConfig);
     }
 
-    public static void prepare(TestMethod testMethod) {
-        switch (testMethod.prepareDateType()){
-            case XML2DB:{
-                for(String path:testMethod.prepareDateConfig()){
-
-                }
-
-                break;
-            }
-            default:{
-                break;
-            }
-        }
+    public static void prepare(TestMethod testMethod, TestConfig testConfig) {
+        Class<?>[] clazzes = testMethod.prepareDate();
+        System.out.println(testConfig);
     }
 }
