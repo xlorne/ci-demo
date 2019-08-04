@@ -35,8 +35,6 @@ public class DataSourceAspect {
     public Object around(ProceedingJoinPoint point) throws Throwable {
         log.info("around----1");
         Object res = point.proceed();
-        TestContext testContext = new TestContext();
-        testContext.setResource(res);
         log.info("around----2");
         return res;
     }
