@@ -1,23 +1,53 @@
 package com.codingapi.test.xml;
 
-import com.codingapi.test.annotation.XmlBuild;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.apache.commons.beanutils.BeanUtils;
 
-import java.lang.reflect.Field;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class XmlUtils {
 
-    public static  String create(Class<?> clazz, XmlBuild xmlBuild) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<?xml version=\"1.0\"?>\n");
-        Field[] fields = clazz.getDeclaredFields();
-        sb.append(String.format("<list initCmd=\"%s\" dbType=\"%s\">\n",xmlBuild.initCmd(),xmlBuild.dbType()));
-        sb.append("\t<item>\n");
-        for (Field field:fields){
-            String key = field.getName();
-            sb.append(String.format("\t\t<%s>%s</%s>\n",key,key,key));
-        }
-        sb.append("\t</item>\n");
-        sb.append("</list>");
-        return sb.toString();
+    public static <T> String create(XmlInfo xmlInfo) throws JsonProcessingException {
+        XmlMapper xmlMapper = new XmlMapper();
+        xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        xmlMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
+            @Override
+            public void serialize(Object val, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+                jsonGenerator.writeString("");
+            }
+        });
+        String res = xmlMapper.writeValueAsString(xmlInfo);
+        return res;
     }
+
+
+    public static <T> XmlInfo<T>  parser (String xml) throws IOException, InvocationTargetException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+        XmlMapper xmlMapper = new XmlMapper();
+        XmlInfo<LinkedHashMap<String,Object>> res = xmlMapper.readValue(xml,new TypeReference<XmlInfo<LinkedHashMap<String,Object>>>(){});
+        return parser(res, (Class<T>) Class.forName(res.getName()));
+    }
+
+    private static <T> XmlInfo<T> parser(XmlInfo<LinkedHashMap<String,Object>> res, Class<T> clazz) throws  InvocationTargetException, IllegalAccessException, InstantiationException {
+        XmlInfo<T> xmlInfo = new XmlInfo<>();
+        BeanUtils.copyProperty(xmlInfo,"initCmd",res.getInitCmd());
+        BeanUtils.copyProperty(xmlInfo,"dbType",res.getDbType());
+        BeanUtils.copyProperty(xmlInfo,"path",res.getPath());
+        BeanUtils.copyProperty(xmlInfo,"name",res.getName());
+        for (Map<String,Object> map:res.getList()){
+            T t = clazz.newInstance();
+            BeanUtils.populate(t,map);
+            xmlInfo.getList().add(t);
+        }
+        return xmlInfo;
+    }
+
 }

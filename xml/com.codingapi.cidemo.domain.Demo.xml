@@ -1,0 +1,12 @@
+<XmlInfo>
+  <name>com.codingapi.cidemo.domain.Demo</name>
+  <path>com.codingapi.cidemo.domain.Demo.xml</path>
+  <initCmd>insert into t_demo values(id,name) values(#{id},#{name})</initCmd>
+  <dbType>Mysql</dbType>
+  <list>
+    <list>
+      <id>2</id>
+      <name>4</name>
+    </list>
+  </list>
+</XmlInfo>

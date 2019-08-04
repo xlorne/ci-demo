@@ -21,4 +21,8 @@ public @interface XmlBuild {
 
     DBType dbType() default DBType.Mysql;
 
+    String path() default "";
+
+    String name() default "";
+
 }

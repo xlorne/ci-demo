@@ -16,7 +16,7 @@ public class TestConfig {
     /**
      * 是否开启
      */
-    private boolean enable;
+    private boolean coverXml;
 
     /**
      * 输出xml的路径
