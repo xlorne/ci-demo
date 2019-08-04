@@ -16,9 +16,10 @@ public @interface TestMethod {
 
    boolean enablePrepare() default true;
 
-    Class<?>[] prepareDate() default {};
+    String[] prepareData() default {};
 
     boolean enableCheck() default false;
 
     String[] checkConfigFiles() default {};
+
 }

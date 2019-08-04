@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.annotation.Order;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -28,6 +29,7 @@ import java.util.UUID;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles("test")
 @Slf4j
 @TestExecutionListeners({JunitMethodListener.class,
         DependencyInjectionTestExecutionListener.class})
@@ -39,7 +41,7 @@ public class DemoServiceTest {
     private String userName = UUID.randomUUID().toString();
 
     @Test
-    @TestMethod(prepareDate = {Demo.class})
+    @TestMethod(prepareData = {"com.codingapi.cidemo.domain.Demo.xml"})
     public void save(){
         Demo demo = new Demo();
         demo.setName(userName);
