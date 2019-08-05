@@ -15,11 +15,20 @@
  */
 package com.codingapi.test.proxy;
 
+import com.codingapi.test.TestThreadLocal;
+import com.codingapi.test.annotation.DBType;
+import com.codingapi.test.utils.SqlUtils;
+import com.codingapi.test.xml.XmlInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+
+import java.sql.Connection;
+import java.util.List;
 
 /**
  * create by lorne on 2018/1/5
@@ -33,9 +42,22 @@ public class DataSourceAspect {
 
     @Around("execution(* javax.sql.DataSource.getConnection(..))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        log.info("around----1");
         Object res = point.proceed();
-        log.info("around----2");
+        TestThreadLocal testThreadLocal = TestThreadLocal.get();
+        if(testThreadLocal!=null){
+            Connection connection = (Connection) res;
+            List<XmlInfo> list =  testThreadLocal.getList();
+            for(XmlInfo xmlInfo:list){
+                if(xmlInfo.getDbType().equals(DBType.Mysql)){
+                    QueryRunner queryRunner = new QueryRunner();
+                    for(Object object : xmlInfo.getList()) {
+                        SqlUtils.SqlParam sqlParam = SqlUtils.parser(xmlInfo.getInitCmd(),object);
+                        Object rows = queryRunner.insert(connection, sqlParam.getSql(),new ScalarHandler<>(),sqlParam.getParams());
+                        log.info("sql->{},rows:{}",sqlParam.getSql(),rows);
+                    }
+                }
+            }
+        }
         return res;
     }
 

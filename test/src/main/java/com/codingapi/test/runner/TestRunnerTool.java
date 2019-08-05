@@ -1,5 +1,6 @@
 package com.codingapi.test.runner;
 
+import com.codingapi.test.TestThreadLocal;
 import com.codingapi.test.annotation.TestMethod;
 import com.codingapi.test.config.TestConfig;
 import com.codingapi.test.xml.XmlInfo;
@@ -38,6 +39,8 @@ public class TestRunnerTool {
             for(String xmlFile:testMethod.prepareData()){
                 String xml = FileUtils.readFileToString(new File(path+"/"+xmlFile));
                 XmlInfo<T> parser = XmlUtils.parser(xml);
+                TestThreadLocal testThreadLocal = new TestThreadLocal();
+                testThreadLocal.getList().add(parser);
                 log.info("xml->{}",parser);
             }
         }

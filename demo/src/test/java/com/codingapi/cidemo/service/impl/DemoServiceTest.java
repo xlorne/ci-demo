@@ -41,7 +41,6 @@ public class DemoServiceTest {
     private String userName = UUID.randomUUID().toString();
 
     @Test
-    @TestMethod(prepareData = {"com.codingapi.cidemo.domain.Demo.xml"})
     public void save(){
         Demo demo = new Demo();
         demo.setName(userName);
@@ -50,7 +49,7 @@ public class DemoServiceTest {
     }
 
     @Test
-    @Order(1)
+    @TestMethod(prepareData = {"com.codingapi.cidemo.domain.Demo.xml"})
     public void list(){
         List<Demo> list = demoService.list();
         log.info("list - > {}",list);
