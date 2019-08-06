@@ -14,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.TestContext;
+import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -36,11 +37,35 @@ public class TestRunnerTool {
         System.out.println(testContext);
     }
 
-    public static void clean(TestMethod testMethod, TestContext testContext) {
-        System.out.println(testContext);
+    public static <T> void clean(TestMethod testMethod, TestContext testContext)  throws IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, SQLException {
+        ApplicationContext applicationContext = testContext.getApplicationContext();
+        TestConfig testConfig = applicationContext.getBean(TestConfig.class);
+        String path =  testConfig.getOutPath();
+        TestThreadLocal testThreadLocal = new TestThreadLocal();
+        if(testMethod.prepareData().length>0){
+            for(String xmlFile:testMethod.prepareData()){
+                String xml = FileUtils.readFileToString(new File(path+"/"+xmlFile));
+                XmlInfo<T> xmlInfo = XmlUtils.parser(xml);
+                testThreadLocal.getList().add(xmlInfo);
+
+                if(xmlInfo.getDbType().equals(DBType.Mysql)&& !StringUtils.isEmpty(xmlInfo.getClearCmd())){
+                    DataSource dataSource = applicationContext.getBean(DataSource.class);
+                    QueryRunner queryRunner = new QueryRunner();
+                    queryRunner.execute(dataSource.getConnection(),xmlInfo.getClearCmd());
+
+                }
+
+                if(xmlInfo.getDbType().equals(DBType.Mongo)){
+                    MongoTemplate mongoTemplate = applicationContext.getBean(MongoTemplate.class);
+                    mongoTemplate.dropCollection(xmlInfo.getName());
+                }
+
+            }
+        }
+
     }
 
-    public static <T> void prepare(TestMethod testMethod, TestContext testContext) throws IOException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException, SQLException {
+    public static <T> void prepare(TestMethod testMethod, TestContext testContext) throws IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, SQLException {
         ApplicationContext applicationContext = testContext.getApplicationContext();
         TestConfig testConfig = applicationContext.getBean(TestConfig.class);
         String path =  testConfig.getOutPath();
@@ -59,6 +84,7 @@ public class TestRunnerTool {
                         Object rows = queryRunner.insert(dataSource.getConnection(), sqlParam.getSql(),new ScalarHandler<>(),sqlParam.getParams());
                         log.info("mysql->{},rows:{}",sqlParam.getSql(),rows);
                     }
+
                 }
 
                 if(xmlInfo.getDbType().equals(DBType.Mongo)){
@@ -67,6 +93,7 @@ public class TestRunnerTool {
                         Object res = mongoTemplate.save(object,xmlInfo.getName());
                         log.info("mongodb->,rows:{}",res);
                     }
+
                 }
 
             }

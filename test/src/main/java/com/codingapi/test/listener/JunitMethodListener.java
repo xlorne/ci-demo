@@ -46,11 +46,11 @@ public class JunitMethodListener extends AbstractTestExecutionListener {
             return;
         }
 
-        if(!hasException){
+        if(testMethod.enableCheck()&&!hasException){
             TestRunnerTool.check(testMethod,testContext);
         }
 
-        if (testMethod.enablePrepare()) {
+        if (testMethod.enableClear()) {
             TestRunnerTool.clean(testMethod,testContext);
         }
     }

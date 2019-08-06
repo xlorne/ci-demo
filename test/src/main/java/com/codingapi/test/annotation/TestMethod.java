@@ -14,12 +14,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TestMethod {
 
-   boolean enablePrepare() default true;
+    boolean enablePrepare() default true;
 
     String[] prepareData() default {};
 
     boolean enableCheck() default false;
 
     String[] checkConfigFiles() default {};
+
+    boolean enableClear() default true;
 
 }
