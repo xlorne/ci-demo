@@ -1,6 +1,9 @@
 package com.codingapi.cidemo.domain;
 
+
 import com.codingapi.cidemo.vo.BaseVO;
+import com.codingapi.test.annotation.DBType;
+import com.codingapi.test.annotation.XmlBuild;
 import lombok.Data;
 
 /**
@@ -9,9 +12,11 @@ import lombok.Data;
  * @description
  */
 @Data
+@XmlBuild(name = "t_demo",dbType= DBType.Mysql)
 public class Demo extends BaseVO {
 
     private Long id;
 
     private String name;
+
 }

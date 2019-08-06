@@ -1,8 +1,10 @@
 package com.codingapi.cidemo.service.impl;
 
+import com.codingapi.cidemo.collection.Order;
 import com.codingapi.cidemo.domain.Demo;
 import com.codingapi.cidemo.exception.UserNameNotFoundException;
 import com.codingapi.cidemo.mapper.DemoMapper;
+import com.codingapi.cidemo.repository.OrderRepository;
 import com.codingapi.cidemo.service.DemoService;
 import com.codingapi.cidemo.vo.LoginReq;
 import com.codingapi.cidemo.vo.LoginRes;
@@ -22,10 +24,23 @@ public class DemoServiceImpl implements DemoService {
     @Autowired
     private DemoMapper demoMapper;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
 
     @Override
     public boolean save(Demo demo) {
         return demoMapper.save(demo)>0;
+    }
+
+    @Override
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findAll();
     }
 
     @Override
