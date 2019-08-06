@@ -2,8 +2,11 @@ package com.codingapi.test.listener;
 
 
 import com.codingapi.test.annotation.TestMethod;
-import com.codingapi.test.runner.TestRunnerTool;
+import com.codingapi.test.runner.ITestCheck;
+import com.codingapi.test.runner.ITestClear;
+import com.codingapi.test.runner.ITestPrepare;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.support.AbstractTestExecutionListener;
 
@@ -20,6 +23,7 @@ public class JunitMethodListener extends AbstractTestExecutionListener {
 
     @Override
     public void beforeTestMethod(TestContext testContext) throws Exception {
+        ApplicationContext applicationContext =  testContext.getApplicationContext();
         Method jdkMethod = testContext.getTestMethod();
         if (jdkMethod == null) {
             return;
@@ -30,12 +34,14 @@ public class JunitMethodListener extends AbstractTestExecutionListener {
             return;
         }
         if (testMethod.enablePrepare()) {
-            TestRunnerTool.prepare(testMethod,testContext);
+            ITestPrepare testPrepare =  applicationContext.getBean(ITestPrepare.class);
+            testPrepare.prepare(testMethod,testContext);
         }
     }
 
     @Override
     public void afterTestMethod(TestContext testContext) throws Exception {
+        ApplicationContext applicationContext =  testContext.getApplicationContext();
         boolean hasException = (testContext.getTestException() != null) ? true : false;
         Method jdkMethod = testContext.getTestMethod();
         if (jdkMethod == null) {
@@ -47,11 +53,13 @@ public class JunitMethodListener extends AbstractTestExecutionListener {
         }
 
         if(testMethod.enableCheck()&&!hasException){
-            TestRunnerTool.check(testMethod,testContext);
+            ITestCheck testCheck =  applicationContext.getBean(ITestCheck.class);
+            testCheck.check(testMethod,testContext);
         }
 
         if (testMethod.enableClear()) {
-            TestRunnerTool.clean(testMethod,testContext);
+            ITestClear testClear =  applicationContext.getBean(ITestClear.class);
+            testClear.clean(testMethod,testContext);
         }
     }
 

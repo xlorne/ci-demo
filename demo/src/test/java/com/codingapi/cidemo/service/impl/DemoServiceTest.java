@@ -60,7 +60,6 @@ public class DemoServiceTest {
     @Test
     @TestMethod(prepareData = {"order.xml"},
             enableCheck = true,
-            enableClear = false,
             checkMongoData = @CheckMongoData(
                     desc = "检查数据是否正确",
                     primaryKey = "id",
