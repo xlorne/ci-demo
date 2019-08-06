@@ -1,6 +1,6 @@
 package com.codingapi.cidemo.repository;
 
-import com.codingapi.cidemo.collection.Order;
+import com.codingapi.cidemo.collection.Logger;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @description
  */
 @Repository
-public interface OrderRepository extends MongoRepository<Order,String> {
+public interface OrderRepository extends MongoRepository<Logger,String> {
 
 
 }

@@ -2,13 +2,16 @@
   <name>t_demo</name>
   <path>t_demo.xml</path>
   <initCmd>insert into t_demo(id,name) values(#{id},#{name})</initCmd>
-  <clearCmd>truncate t_demo</clearCmd>
   <dbType>Mysql</dbType>
   <className>com.codingapi.cidemo.domain.Demo</className>
   <list>
     <list>
       <id>1</id>
       <name>123</name>
+    </list>
+    <list>
+      <id>2</id>
+      <name>1234</name>
     </list>
   </list>
 </XmlInfo>

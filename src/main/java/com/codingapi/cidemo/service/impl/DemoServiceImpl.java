@@ -1,17 +1,15 @@
 package com.codingapi.cidemo.service.impl;
 
-import com.codingapi.cidemo.collection.Order;
+import com.codingapi.cidemo.collection.Logger;
 import com.codingapi.cidemo.domain.Demo;
 import com.codingapi.cidemo.exception.UserNameNotFoundException;
 import com.codingapi.cidemo.mapper.DemoMapper;
 import com.codingapi.cidemo.repository.OrderRepository;
 import com.codingapi.cidemo.service.DemoService;
-import com.codingapi.cidemo.vo.LoginReq;
-import com.codingapi.cidemo.vo.LoginRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Date;
 
 /**
  * @author lorne
@@ -29,37 +27,16 @@ public class DemoServiceImpl implements DemoService {
 
 
     @Override
-    public boolean save(Demo demo) {
-        return demoMapper.save(demo)>0;
-    }
-
-    @Override
-    public void save(Order order) {
-        orderRepository.save(order);
-    }
-
-    @Override
-    public List<Order> findAll() {
-        return orderRepository.findAll();
-    }
-
-    @Override
-    public List<Demo> list() {
-        return demoMapper.list();
-    }
-
-    @Override
-    public LoginRes login(LoginReq loginReq) {
-        Demo demo = demoMapper.getByName(loginReq.getName());
-        if (demo == null) {
-            throw new UserNameNotFoundException(String.format("not exits %s", loginReq.getName()));
+    public Long login(String name) {
+        Demo demo =  demoMapper.getByName(name);
+        if(demo==null){
+            throw new UserNameNotFoundException("用户不存在");
         }
-        return demo.toBean(new LoginRes());
-    }
-
-    @Override
-    public void test() {
-        int res = 100 / 1;
-        System.out.println("xxxx");
+        Logger logger = new Logger();
+        logger.setId(demo.getId());
+        logger.setTime(new Date());
+        logger.setInfo("user:"+name);
+        orderRepository.save(logger);
+        return demo.getId();
     }
 }

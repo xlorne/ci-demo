@@ -1,0 +1,14 @@
+<XmlInfo>
+  <name>logger</name>
+  <path>logger.xml</path>
+  <initCmd></initCmd>
+  <dbType>Mongo</dbType>
+  <className>com.codingapi.cidemo.collection.Logger</className>
+  <list>
+    <list>
+      <id></id>
+      <time></time>
+      <info></info>
+    </list>
+  </list>
+</XmlInfo>

@@ -19,4 +19,6 @@ public class Demo extends BaseVO {
 
     private String name;
 
+
+
 }
