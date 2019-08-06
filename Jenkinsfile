@@ -7,11 +7,12 @@ pipeline {
     }
     stages {
         stage('Build') {
-             steps {
-                    echo 'Building..'
-             }
+              agent { docker 'mysql' }
+              steps {
+                 echo 'Hello, mysql'
+              }
         }
-        stage('Test') {
+        stage('Build Test') {
             steps {
                 echo 'Testing..'
 
