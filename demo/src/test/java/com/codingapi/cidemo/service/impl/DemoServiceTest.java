@@ -1,7 +1,7 @@
 package com.codingapi.cidemo.service.impl;
 
 import com.codingapi.cidemo.collection.Order;
-import com.codingapi.test.annotation.TestMethod;
+import com.codingapi.test.annotation.*;
 import com.codingapi.cidemo.domain.Demo;
 import com.codingapi.cidemo.exception.UserNameNotFoundException;
 import com.codingapi.test.listener.JunitMethodListener;
@@ -58,7 +58,17 @@ public class DemoServiceTest {
     }
 
     @Test
-    @TestMethod(prepareData = {"order.xml"})
+    @TestMethod(prepareData = {"order.xml"},
+            enableCheck = true,
+            enableClear = false,
+            checkMongoData = @CheckMongoData(
+                    desc = "检查数据是否正确",
+                    primaryKey = "id",
+                    primaryVal = "1",
+                    bean = Order.class,
+                    type = CheckMongoData.Type.Integer,
+                    expected = @Expected(key = "number",value = "222",type = Expected.Type.String))
+    )
     public void findAll(){
         List<Order> list =  demoService.findAll();
         log.info("list->{}",list);
@@ -68,7 +78,18 @@ public class DemoServiceTest {
 
 
     @Test
-    @TestMethod(prepareData = {"t_demo.xml"})
+    @TestMethod(prepareData = {"t_demo.xml"},
+            enableCheck = true,
+            checkMysqlData = {
+                    @CheckMysqlData(
+                            desc = "检查数据是否正确",
+                            sql = "select name from t_demo where id = 1",
+                            expected = @Expected(key = "name",value = "123",type = Expected.Type.String)
+                    )
+
+
+            }
+    )
     public void list(){
         List<Demo> list = demoService.list();
         log.info("list - > {}",list);

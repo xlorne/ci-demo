@@ -7,8 +7,8 @@
   <className>com.codingapi.cidemo.domain.Demo</className>
   <list>
     <list>
-      <id></id>
-      <name></name>
+      <id>1</id>
+      <name>123</name>
     </list>
   </list>
 </XmlInfo>
