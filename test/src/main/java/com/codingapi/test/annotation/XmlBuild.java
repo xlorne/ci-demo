@@ -17,12 +17,34 @@ import java.lang.annotation.Target;
 @IndexAnnotated
 public @interface XmlBuild {
 
+    /**
+     * 插入执行指令
+     * mongodb下不需要 mysql会自动生成所有的自动的完整sql
+     * @return insert 语句
+     */
     String initCmd() default "";
 
+    /**
+     * 清理数据指令
+     * mongodb下不需要 mysql会使用 truncate @name()
+     * @return truncate table or drop table
+     */
+    String clearCmd() default "";
+
+    /**
+     * 数据库类型 目前支持mysql和mongo
+     * @return mysql or mongo
+     */
     DBType dbType() default DBType.Mysql;
 
-    String path() default "";
 
-    String name() default "";
+    /**
+     * table或collection名称
+     * @return demo
+     */
+    String name();
+
+
+
 
 }

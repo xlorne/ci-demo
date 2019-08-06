@@ -13,7 +13,10 @@ public class TestThreadLocal {
         return threadLocal.get();
     }
     public static void set(TestThreadLocal testThreadLocal){
-        testThreadLocal.set(testThreadLocal);
+        threadLocal.set(testThreadLocal);
+    }
+    public static void clear(){
+        threadLocal.set(null);
     }
 
     public TestThreadLocal() {

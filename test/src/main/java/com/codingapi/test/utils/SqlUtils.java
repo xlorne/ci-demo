@@ -3,6 +3,7 @@ package com.codingapi.test.utils;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +27,39 @@ public class SqlUtils {
         sqlParam.setSql(initCmd);
         sqlParam.setParams(params.toArray());
         return sqlParam;
+    }
+
+    public static String createInsertSql(String name, Class<?> clazz) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("insert into ");
+        sb.append(name);
+        sb.append("(");
+        Field[] fields =  clazz.getDeclaredFields();
+        int filedLength = fields.length;
+        for (int i=0;i<filedLength;i++){
+            Field field = fields[i];
+            if(i==filedLength-1){
+                sb.append(field.getName());
+            }else {
+                sb.append(field.getName()+",");
+            }
+        }
+        sb.append(")");
+        sb.append(" values(");
+        for (int i=0;i<filedLength;i++){
+            Field field = fields[i];
+            if(i==filedLength-1){
+                sb.append("#{"+field.getName()+"}");
+            }else {
+                sb.append("#{"+field.getName()+"},");
+            }
+        }
+        sb.append(")");
+        return sb.toString();
+    }
+
+    public static String createClearSql(String name) {
+        return "truncate "+name;
     }
 
     @Data

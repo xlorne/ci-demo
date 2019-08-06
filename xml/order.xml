@@ -1,0 +1,14 @@
+<XmlInfo>
+  <name>order</name>
+  <path>order.xml</path>
+  <initCmd></initCmd>
+  <clearCmd></clearCmd>
+  <dbType>Mongo</dbType>
+  <className>com.codingapi.cidemo.collection.Order</className>
+  <list>
+    <list>
+      <id>12</id>
+      <number>222</number>
+    </list>
+  </list>
+</XmlInfo>

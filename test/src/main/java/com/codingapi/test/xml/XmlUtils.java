@@ -33,7 +33,7 @@ public class XmlUtils {
     public static <T> XmlInfo<T>  parser (String xml) throws IOException, InvocationTargetException, IllegalAccessException, InstantiationException, ClassNotFoundException {
         XmlMapper xmlMapper = new XmlMapper();
         XmlInfo<LinkedHashMap<String,Object>> res = xmlMapper.readValue(xml,new TypeReference<XmlInfo<LinkedHashMap<String,Object>>>(){});
-        return parser(res, (Class<T>) Class.forName(res.getName()));
+        return parser(res, (Class<T>) Class.forName(res.getClassName()));
     }
 
     private static <T> XmlInfo<T> parser(XmlInfo<LinkedHashMap<String,Object>> res, Class<T> clazz) throws  InvocationTargetException, IllegalAccessException, InstantiationException {
@@ -42,6 +42,9 @@ public class XmlUtils {
         BeanUtils.copyProperty(xmlInfo,"dbType",res.getDbType());
         BeanUtils.copyProperty(xmlInfo,"path",res.getPath());
         BeanUtils.copyProperty(xmlInfo,"name",res.getName());
+        BeanUtils.copyProperty(xmlInfo,"className",res.getClassName());
+        BeanUtils.copyProperty(xmlInfo,"clearCmd",res.getClearCmd());
+
         for (Map<String,Object> map:res.getList()){
             T t = clazz.newInstance();
             BeanUtils.populate(t,map);

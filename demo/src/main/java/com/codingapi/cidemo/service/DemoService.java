@@ -1,5 +1,6 @@
 package com.codingapi.cidemo.service;
 
+import com.codingapi.cidemo.collection.Order;
 import com.codingapi.cidemo.domain.Demo;
 import com.codingapi.cidemo.vo.LoginReq;
 import com.codingapi.cidemo.vo.LoginRes;
@@ -20,4 +21,9 @@ public interface DemoService {
     LoginRes login(LoginReq loginReq);
 
     void test();
+
+
+    List<Order> findAll();
+
+    void save(Order demo);
 }

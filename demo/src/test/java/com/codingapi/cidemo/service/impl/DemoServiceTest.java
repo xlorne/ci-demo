@@ -1,5 +1,6 @@
 package com.codingapi.cidemo.service.impl;
 
+import com.codingapi.cidemo.collection.Order;
 import com.codingapi.test.annotation.TestMethod;
 import com.codingapi.cidemo.domain.Demo;
 import com.codingapi.cidemo.exception.UserNameNotFoundException;
@@ -12,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.annotation.Order;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -48,8 +48,27 @@ public class DemoServiceTest {
         Assert.isTrue(res,"save error.");
     }
 
+
     @Test
-    @TestMethod(prepareData = {"com.codingapi.cidemo.domain.Demo.xml"})
+    public void mongoSave(){
+        Order order = new Order();
+        order.setNumber(userName);
+        order.setId(123L);
+        demoService.save(order);
+    }
+
+    @Test
+    @TestMethod(prepareData = {"order.xml"})
+    public void findAll(){
+        List<Order> list =  demoService.findAll();
+        log.info("list->{}",list);
+        Assert.notNull(list,"应该就一条数据.");
+    }
+
+
+
+    @Test
+    @TestMethod(prepareData = {"t_demo.xml"})
     public void list(){
         List<Demo> list = demoService.list();
         log.info("list - > {}",list);

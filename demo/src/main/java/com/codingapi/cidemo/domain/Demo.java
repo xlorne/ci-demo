@@ -12,7 +12,7 @@ import lombok.Data;
  * @description
  */
 @Data
-@XmlBuild(initCmd = "insert into t_demo(id,name) values(#{id},#{name})",dbType= DBType.Mysql)
+@XmlBuild(name = "t_demo",dbType= DBType.Mysql)
 public class Demo extends BaseVO {
 
     private Long id;
