@@ -1,6 +1,6 @@
 <XmlInfo>
   <name>logger</name>
-  <path>logger.xml</path>
+  <path>/developer/idea/github/ci-demo/xml/logger.xml</path>
   <initCmd></initCmd>
   <dbType>Mongo</dbType>
   <className>com.codingapi.cidemo.collection.Logger</className>
