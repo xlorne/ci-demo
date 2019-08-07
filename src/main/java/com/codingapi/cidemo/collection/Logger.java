@@ -12,7 +12,7 @@ import java.util.Date;
  * @description
  */
 @Data
-@XmlBuild(name = "logger",dbType = DBType.Mongo)
+@XmlBuild(name = "logger",dbType = DBType.MONGODB,colType = XmlBuild.ColType.UNDERLINE)
 public class Logger {
 
     private Long id;
@@ -20,6 +20,8 @@ public class Logger {
     private Date time;
 
     private String info;
+
+    private String userName;
 
 
 }

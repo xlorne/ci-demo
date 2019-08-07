@@ -44,10 +44,10 @@ public class DemoServiceTest {
             @CheckMongoData(
                     primaryVal = "user:123",
                     primaryKey = "info",
-                    type = CheckMongoData.Type.String,
+                    type = CheckMongoData.Type.STRING,
                     desc = "数据不存在",
                     bean = Logger.class,
-                    expected = @Expected(key = "id",value = "1",type = Expected.Type.Long)),
+                    expected = @Expected(key = "id",value = "1")),
             enableClear = true,
             clearCollectionNames = {"logger"},
             clearTableNames = {"t_demo"}

@@ -1,7 +1,7 @@
 <XmlInfo>
   <name>t_demo</name>
   <initCmd>insert into t_demo(id,name) values(#{id},#{name})</initCmd>
-  <dbType>Mysql</dbType>
+  <dbType>RELATIONAL</dbType>
   <className>com.codingapi.cidemo.domain.Demo</className>
   <list>
     <list>

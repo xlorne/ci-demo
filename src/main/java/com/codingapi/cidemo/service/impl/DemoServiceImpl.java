@@ -35,6 +35,7 @@ public class DemoServiceImpl implements DemoService {
         Logger logger = new Logger();
         logger.setId(demo.getId());
         logger.setTime(new Date());
+        logger.setUserName(name);
         logger.setInfo("user:"+name);
         orderRepository.save(logger);
         return demo.getId();

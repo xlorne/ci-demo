@@ -1,13 +1,14 @@
 <XmlInfo>
   <name>logger</name>
   <initCmd></initCmd>
-  <dbType>Mongo</dbType>
+  <dbType>MONGODB</dbType>
   <className>com.codingapi.cidemo.collection.Logger</className>
   <list>
     <list>
       <id></id>
       <time></time>
       <info></info>
+      <userName></userName>
     </list>
   </list>
 </XmlInfo>
